@@ -10,8 +10,8 @@ const generateOrder = () => {
   let cargo = {
     store: chance.company(),
     id: chance.string({length: 1, numeric: true}),
-    // customer: chance.name({ nationality: 'en' }),
-    // address: chance.address({ short_suffix: true }),
+    customer: chance.name({ nationality: 'en' }),
+    address: chance.address({ short_suffix: true }),
   };
   chance.string();
   console.log(`cargo has arrived in trailer ${cargo.id}`);
@@ -19,7 +19,7 @@ const generateOrder = () => {
 };
 
 const unloaded = (cargo) => {
-  console.log(`RECEIVER: unloaded ${cargo.id}`);
+  console.log(`RECEIVING: unloaded trailer ${cargo.id}, ready for new trailer`);
   socket.emit('UNLOADED', cargo);
 };
 
