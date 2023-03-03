@@ -9,9 +9,16 @@ const server = new Server();
 server.on('connection', (socket) => {
   console.log('Socket connected to Hub Server', socket.id);
   // server.emit('SERVER');
-  socket.on('HELLO', () => {
-    console.log('SERVER: Receiving is connected to Server.');
-  });
+
+  socket.on('ARRIVAL', (cargo) => {
+    console.log(`WAREHOUSE: unloading cargo ${cargo.id}`);
+    socket.emit('ARRIVAL', cargo);
+  }, 1000);
+
+  socket.on('UNLOADED', (cargo) => {
+    console.log(`WAREHOUSE: cargo ${cargo.id} has been unloaded`);
+    socket.emit('UNLOADED', cargo);
+  }, 1200);
 });
 
 

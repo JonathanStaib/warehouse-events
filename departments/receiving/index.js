@@ -2,16 +2,16 @@
 
 const { io } = require('socket.io-client');
 const socket = io('http://localhost:3001');
-const { Chance } = require('chance');
-const chance = new Chance();
+const { generateOrder, unloaded } = require('./handler');
 
 
-function start() {
-  let text = 'proof of life from receiving';
-  console.log(text);
-  socket.emit('HELLO', text);
-}
+setInterval(() => {
+  console.log('---new trailer arrives---');
+  generateOrder(socket);
+}, 5000);
 
-
-
-start();
+socket.on('ARRIVAL', (cargo) => {
+  setTimeout(() => {
+    unloaded(cargo);
+  }, 1500);
+});
